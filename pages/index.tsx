@@ -21,13 +21,25 @@ export const Layout = (props: {
 		</main>
 
 		<footer>
-			<a
-				href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-				target="_blank"
-				rel="noopener noreferrer"
-			>
-				Powered by <img src="/vercel.svg" alt="Vercel Logo" />
-			</a>
+			<p>
+				Something That May Or May Not Exist By{"   "}
+				<a
+					href="https://joshpress.net"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					Josh Pollock
+				</a>
+			</p>
+			<p>
+				<a
+					href="https://github.com/shelob9/pretend-api"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					View Source
+				</a>
+			</p>
 		</footer>
 
 		<style jsx global>{`
@@ -69,14 +81,12 @@ export const Layout = (props: {
 				align-items: center;
 			}
 
-			footer img {
-				margin-left: 0.5rem;
+			footer p {
+				margin: 8px;
 			}
 
-			footer a {
-				display: flex;
-				justify-content: center;
-				align-items: center;
+			footer img {
+				margin-left: 0.5rem;
 			}
 
 			a {
