@@ -10,8 +10,10 @@
   "dependencies": {
     "cross-fetch": "^3.0.4",
     "next": "^9.3.3",
+    "query-string": "^6.13.0",
     "react": "^16.13.0",
-    "react-dom": "^16.13.0"
+    "react-dom": "^16.13.0",
+    "react-json-editor-ajrm": "^2.5.9"
   },
   "devDependencies": {
     "@types/node": "^14.0.13",
