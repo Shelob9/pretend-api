@@ -116,7 +116,7 @@ export default function () {
 						</li>
 						<ul>
 							<li>
-								Responds with status pre 200, and request query string in body.
+								Responds with status code 200, and request query string in body.
 							</li>
 						</ul>
 						<li>
@@ -126,14 +126,14 @@ export default function () {
 							<pre>PUT /api/repeater</pre>
 						</li>
 						<ul>
-							<li>Responds with status pre 201, and query string in body.</li>
+							<li>Responds with status code 201, and query string in body.</li>
 						</ul>
 						<li>
 							<pre>DELETE /api/repeater</pre>
 						</li>
 						<ul>
 							<li>
-								Responds with status pre 204 and the body{" "}
+								Responds with status code 204 and the body{" "}
 								{JSON.stringify({ message: "Deleted." })}
 							</li>
 						</ul>
