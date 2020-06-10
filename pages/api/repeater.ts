@@ -3,12 +3,14 @@ import { NextApiRequest, NextApiResponse } from "next";
 export default (req: NextApiRequest, res: NextApiResponse) => {
 	const method = req.method ?? "GET";
 	let body = {};
+	res.setHeader("Content-Type", "application/json");
+
 	switch (method) {
 		case "GET":
 			body = req.query;
 			res.statusCode = 200;
 			break;
-		case "DELTE":
+		case "DELETE":
 			res.statusCode = 204;
 			break;
 		default:

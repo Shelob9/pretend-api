@@ -8,26 +8,29 @@ import locale from "react-json-editor-ajrm/locale/en";
 //https://stackoverflow.com/a/1714899
 function stringifyQuery(obj: any) {
 	var str = [];
+	var str = [];
 	for (var p in obj) {
 		if (obj.hasOwnProperty(p)) {
-			str.push(enpreURIComponent(p) + "=" + enpreURIComponent(obj[p]));
+			str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
 		}
 	}
 	return str.join("&");
 }
 
 export default function () {
-	const [reqBody, setReqBody] = React.useState<any>({ hi: "roy", x: "22" });
-	const [resBody, setResBody] = React.useState<any>({ hi: "roy" });
+	const [reqBody, setReqBody] = React.useState<any>({ hi: "roy" });
+	const [resBody, setResBody] = React.useState<any>({ hi: "Roy" });
 	const [requestMethod, setRequestMethod] = React.useState<
 		"GET" | "POST" | "PUT" | "DELETE"
 	>("GET");
 
+	const [status, setStatus] = React.useState<number>(0);
 	const handler = (e) => {
 		e.preventDefault();
 		let url = `/api/repeater`;
 		let body = null;
-
+		setResBody({});
+		setStatus(1);
 		if ("GET" === requestMethod) {
 			url = `${url}?${stringifyQuery(reqBody)}`;
 		} else {
@@ -37,9 +40,24 @@ export default function () {
 		fetch(url, {
 			method: requestMethod,
 			body,
+			headers:
+				"GET" !== requestMethod
+					? {
+							"Content-Type": "application/json",
+					  }
+					: {},
 		})
-			.then((r) => r.json())
-			.then((r) => setResBody(JSON.parse(r.body)));
+			.then((r) => {
+				setStatus(r.status);
+				return r.json();
+			})
+			.then((r) => {
+				if ("string" === typeof r.body) {
+					setResBody(JSON.parse(r.body));
+				} else {
+					setResBody(r.body);
+				}
+			});
 	};
 	return (
 		<Layout pageTitle="Repeater Routs" pageSubTitle={"Demo And Documentation"}>
@@ -48,7 +66,6 @@ export default function () {
 					<h2>Demo</h2>
 					<div className="card ">
 						<h3>Request</h3>
-
 						<form onSubmit={handler}>
 							<label htmlFor={"method"}>Request Method</label>
 
@@ -70,19 +87,20 @@ export default function () {
 
 							<label>Request Body</label>
 							<JSONInput
-								id="a_unique_id"
-								placeholder={reqBody}
+								placeholder={{ hi: "roy" }}
+								id="req-body"
 								theme={"dark_vspre_tribute"}
 								locale={locale}
-								onChange={(update) => setReqBody(update.json)}
+								onChange={(update) => setReqBody(JSON.parse(update.json))}
 								height={200}
 							/>
 						</form>
 					</div>
 					<div className="card ">
-						<h3>Response Body</h3>
+						<h3>Response </h3>
+						{status ? <strong>Status: {status}</strong> : null}
 						<JSONInput
-							id="a_unique_id"
+							id="res-body"
 							placeholder={resBody}
 							theme={"dark_vspre_tribute"}
 							locale={locale}
