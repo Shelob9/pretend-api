@@ -4,7 +4,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
 	const method = req.method ?? "GET";
 	let body = {};
 	res.setHeader("Content-Type", "application/json");
-
+	res.setHeader("Cache-Control", `max-age=${60 * 60 * 24}, public`);
 	switch (method) {
 		case "GET":
 			body = req.query;
